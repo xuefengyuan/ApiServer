@@ -5,9 +5,9 @@ import (
     "ApiServer/src/router"
     "errors"
     "github.com/gin-gonic/gin"
+    "github.com/lexkong/log"
     "github.com/spf13/pflag"
     "github.com/spf13/viper"
-    "log"
     "net/http"
     "time"
 )
@@ -51,8 +51,8 @@ func main()  {
 
     addr := viper.GetString("addr")
 
-    log.Printf("Start to listening the incoming requests on http address: %s", addr)
-    log.Printf(http.ListenAndServe(addr, g).Error())
+    log.Infof("Start to listening the incoming requests on http address: %s", addr)
+    log.Info(http.ListenAndServe(addr, g).Error())
 
 }
 // pingServer pings the http server to make sure the router is working.
@@ -66,7 +66,7 @@ func pingServer() error {
         }
 
         // Sleep for a second to continue the next ping.
-        log.Print("Waiting for the router, retry in 1 second.")
+        log.Info("Waiting for the router, retry in 1 second.")
         time.Sleep(time.Second)
     }
     return errors.New("Cannot connect to the router.")
